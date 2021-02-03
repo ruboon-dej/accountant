@@ -20,6 +20,7 @@ class User:
 
     def reset_by_user(self):
         self.total = None
+        self.total = 0
 
     def get_response(self, text):
         if self.ask is None:
