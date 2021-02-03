@@ -5,3 +5,4 @@ def calculate(total,function,number)
         total -= number
     else:
         total = "an error has occured please try again."
+    return total
