@@ -47,18 +47,11 @@ class User:
         elif self.number is None:
             if isdigit(text):
                 self.number = float(text)
-            else:
-                return ASK_FOR_NUMBER
-
-        elif self.second_number is None:
-            if isdigit(text):
-                self.second_number = float(text)
                 answer = self.calculate_answer()
                 self.total = answer
                 self.reset_every_time
-                return answer
             else:
                 return ASK_FOR_NUMBER
-                
+
     def calculate_answer(self):
         return calculate(self.total, self.function, self.number)
