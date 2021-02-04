@@ -13,7 +13,7 @@ from linebot.models import (
     MessageEvent, TextMessage, TextSendMessage,
 )
 
-from User import User
+from user import User
 
 cache = Cache()
 app = Flask(__name__)
