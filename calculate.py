@@ -1,4 +1,4 @@
-def calculate(total,function,number)
+def calculate(total,function,number):
     if function ==  "รับ":
         total += number
     elif function == "จ่าย":
