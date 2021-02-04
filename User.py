@@ -46,7 +46,7 @@ class User:
                 return ASK_FOR_FUNCTION
 
         elif self.number is None:
-            if isdigit(text):
+            if text.isdigit() == True:
                 self.number = float(text)
                 answer = self.calculate_answer()
                 self.total = answer
