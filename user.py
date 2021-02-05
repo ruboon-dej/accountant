@@ -9,6 +9,7 @@ class User:
         self.reset()
     
     def reset(self):
+        self.ask = None
         self.function = None
         self.number = None
         self.total = None
