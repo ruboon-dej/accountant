@@ -30,7 +30,7 @@ class User:
                 return "เรียบร้อย ปัจจุบันคุณมีเงิน 0 บาท " + ASK_FOR_FUNCTION
             elif text == "ไม่":
                 self.ask = "Okay"
-                return "รับทราบ" + ASK_FOR_FUNCTION
+                return "รับทราบ " + ASK_FOR_FUNCTION
             else:
                 Response = ""
                 Response += ASK_FOR_RESPONSE + str(self.total) + " บาท"
