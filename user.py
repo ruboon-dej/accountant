@@ -31,10 +31,10 @@ class User:
             if text == "ใช่":
                 self.reset_by_user()
                 self.ask = "Okay"
-                return "เรียบร้อย ปัจจุบันคุณมีเงิน 0 บาท " + ASK_FOR_FUNCTION
+                return TextSendMessage(text="เรียบร้อย ปัจจุบันคุณมีเงิน 0 บาท " + ASK_FOR_FUNCTION)
             elif text == "ไม่":
                 self.ask = "Okay"
-                return "รับทราบ " + ASK_FOR_FUNCTION
+                return TextSendMessage(text="รับทราบ " + ASK_FOR_FUNCTION)
             else:
                 Response = ""
                 Response += ASK_FOR_RESPONSE + str(self.total) + " บาท"
@@ -48,12 +48,12 @@ class User:
         elif self.function is None:
             if text == "รับ":
                 self.function = text
-                return ASK_FOR_NUMBER
+                return TextSendMessage(text=ASK_FOR_NUMBER)
             elif text == "จ่าย":
                 self.function = text
-                return ASK_FOR_NUMBER
+                return TextSendMessage(text=ASK_FOR_NUMBER)
             else:
-                return ASK_FOR_FUNCTION
+                return TextSendMessage(text=ASK_FOR_FUNCTION)
 
         elif self.number is None:
             if text.isdigit() == True:
@@ -62,9 +62,9 @@ class User:
                 self.total = answer
                 response = "ปัจจุบันคุณมีเงิน " + str(answer) + " บาท"
                 self.reset_every_time()
-                return response                
+                return TextSendMessage(text=response)                
             else:
-                return ASK_FOR_NUMBER
+                return TextSendMessage(text=ASK_FOR_NUMBER)
 
     def calculate_answer(self):
-        return calculate(self.total, self.function, self.number)
+        return TextSendMessage(text=calculate(self.total, self.function, self.number))
