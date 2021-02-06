@@ -1,6 +1,6 @@
 from calculate import calculate
 
-ASK_FOR_FUNCTION = " รับ หรือ จ่าย"
+ASK_FOR_FUNCTION = "รับ หรือ จ่าย"
 ASK_FOR_NUMBER = "จำนวนเงิน"
 ASK_FOR_RESPONSE = "ต้องการลบข้อมูลเก่าทิ้งหรือไม่ ปัจจุบันคุณมีเงิน "
 
@@ -27,10 +27,10 @@ class User:
             print ("first")
             if text == "ใช่":
                 self.reset_by_user()
-                return "Done" + ASK_FOR_FUNCTION
+                return "เรียบร้อย ปัจจุบันคุณมีเงิน 0 บาท " + ASK_FOR_FUNCTION
             elif text == "ไม่":
                 self.ask = "Okay"
-                return "Okay" + ASK_FOR_FUNCTION
+                return "รับทราบ" + ASK_FOR_FUNCTION
             else:
                 Response = ""
                 Response += ASK_FOR_RESPONSE + str(self.total) + " บาท"
@@ -53,7 +53,7 @@ class User:
                 self.total = answer
                 response = "ปัจจุบันคุณมีเงิน " + answer + " บาท"
                 self.reset_every_time()
-                return self.total                
+                return response                
             else:
                 return ASK_FOR_NUMBER
 
