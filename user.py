@@ -1,3 +1,7 @@
+  
+from linebot.models import (
+    MessageEvent, TextMessage, TextSendMessage, QuickReply, QuickReplyButton, MessageAction
+)
 from calculate import calculate
 
 ASK_FOR_FUNCTION = "รับ หรือ จ่าย"
