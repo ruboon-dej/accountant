@@ -24,7 +24,6 @@ class User:
 
     def get_response(self, text):
         if self.ask is None:
-            print ("first")
             if text == "ใช่":
                 self.reset_by_user()
                 return "เรียบร้อย ปัจจุบันคุณมีเงิน 0 บาท " + ASK_FOR_FUNCTION
