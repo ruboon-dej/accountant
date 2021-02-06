@@ -51,10 +51,11 @@ class User:
                 self.number = float(text)
                 answer = self.calculate_answer()
                 self.total = answer
+                response = "ปัจจุบันคุณมีเงิน " + answer + " บาท"
                 self.reset_every_time()
                 return self.total                
             else:
                 return ASK_FOR_NUMBER
 
     def calculate_answer(self):
-        return  "ปัจจุบันคุณมีเงิน " + calculate(self.total, self.function, self.number) + " บาท"
+        return calculate(self.total, self.function, self.number)
