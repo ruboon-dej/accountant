@@ -4,6 +4,12 @@ ASK_FOR_FUNCTION = "รับ หรือ จ่าย"
 ASK_FOR_NUMBER = "จำนวนเงิน"
 ASK_FOR_RESPONSE = "ต้องการลบข้อมูลเก่าทิ้งหรือไม่ ปัจจุบันคุณมีเงิน "
 
+FIRST_PROMPT = TextSendMessage(text="",
+    quick_reply=QuickReply(items=[
+        QuickReplyButton(action=MessageAction(label="ใช่", text="ใช่")),
+        QuickReplyButton(action=MessageAction(label="ไม่", text="ไม่"))
+    ]))
+
 class User:
     def __init__(self):
         self.reset()
@@ -26,6 +32,7 @@ class User:
         if self.ask is None:
             if text == "ใช่":
                 self.reset_by_user()
+                self.ask = "Okay"
                 return "เรียบร้อย ปัจจุบันคุณมีเงิน 0 บาท " + ASK_FOR_FUNCTION
             elif text == "ไม่":
                 self.ask = "Okay"
@@ -33,7 +40,7 @@ class User:
             else:
                 Response = ""
                 Response += ASK_FOR_RESPONSE + str(self.total) + " บาท"
-                return Response
+                return Response + FIRST_PROMPT
             
         elif self.function is None:
             if text == "รับ":
