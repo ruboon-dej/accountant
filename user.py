@@ -51,7 +51,7 @@ class User:
                 self.number = float(text)
                 answer = self.calculate_answer()
                 self.total = answer
-                self.reset_every_time
+                self.reset_every_time()
                 return self.total                
             else:
                 return ASK_FOR_NUMBER
