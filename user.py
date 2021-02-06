@@ -2,7 +2,7 @@ from calculate import calculate
 
 ASK_FOR_FUNCTION = "รับ หรือ จ่าย"
 ASK_FOR_NUMBER = "จำนวนเงิน"
-ASK_FOR_RESPONSE = "ต้องการลบข้อมูลเก่าทิ้งหรือไม่ ปัจจุบันคุุณมีเงิน"
+ASK_FOR_RESPONSE = "ต้องการลบข้อมูลเก่าทิ้งหรือไม่ ปัจจุบันคุณมีเงิน "
 
 class User:
     def __init__(self):
@@ -27,13 +27,13 @@ class User:
             print ("first")
             if text == "ใช่":
                 self.reset_by_user()
-                return "Done"
+                return "Done" + ASK_FOR_FUNCTION
             elif text == "ไม่":
                 self.ask = "Okay"
-                return "Okay"
+                return "Okay" + ASK_FOR_FUNCTION
             else:
                 Response = ""
-                Response += ASK_FOR_RESPONSE + str(self.total)
+                Response += ASK_FOR_RESPONSE + str(self.total) + "บาท"
                 return Response
             
         elif self.function is None:
