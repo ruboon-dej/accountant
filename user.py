@@ -12,7 +12,7 @@ class User:
         self.ask = None
         self.function = None
         self.number = None
-        self.total = None
+        self.total = 0
 
     def reset_every_time(self):
         self.ask = None
@@ -20,7 +20,6 @@ class User:
         self.number = None
 
     def reset_by_user(self):
-        self.total = None
         self.total = 0
 
     def get_response(self, text):
