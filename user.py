@@ -38,10 +38,10 @@ class User:
             else:
                 Response = ""
                 Response += ASK_FOR_RESPONSE + str(self.total) + " บาท"
-                FIRST_PROMPT = TextSendMessage(text=Response,
+                FIRST_PROMPT = TextSendMessage(text="ok",
                     quick_reply=QuickReply(items=[
                         QuickReplyButton(action=MessageAction(label="ใช่", text="ใช่")),
-                        QuickReplyButton(action=MessageAction(label="ไม่", text="ไม่"))
+                        QuickReplyButton(action=MessageAction(label="ไม่", text="ไม่")),
                     ]))
                 return FIRST_PROMPT
             
@@ -65,6 +65,8 @@ class User:
                 return TextSendMessage(text=response)                
             else:
                 return TextSendMessage(text=ASK_FOR_NUMBER)
+
+
 
     def calculate_answer(self):
         return TextSendMessage(text=calculate(self.total, self.function, self.number))
