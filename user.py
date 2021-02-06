@@ -33,7 +33,7 @@ class User:
                 return "Okay"
             else:
                 Response = ""
-                Response += ASK_FOR_RESPONSE + self.total
+                Response += ASK_FOR_RESPONSE + str(self.total)
                 return Response
             
         elif self.function is None:
