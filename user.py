@@ -44,7 +44,7 @@ class User:
             else:
                 Response = ""
                 Response += ASK_FOR_RESPONSE + str(self.total) + " บาท"
-                return FIRST_PROMPT
+                return TextMessage(text="YES")
             
         elif self.function is None:
             if text == "รับ":
