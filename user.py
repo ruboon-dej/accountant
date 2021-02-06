@@ -50,7 +50,7 @@ class User:
                 self.number = float(text)
                 answer = self.calculate_answer()
                 self.total = answer
-                response = "ปัจจุบันคุณมีเงิน " + answer + " บาท"
+                response = "ปัจจุบันคุณมีเงิน " + str(answer) + " บาท"
                 self.reset_every_time()
                 return response                
             else:
