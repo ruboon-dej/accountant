@@ -57,4 +57,4 @@ class User:
                 return ASK_FOR_NUMBER
 
     def calculate_answer(self):
-        return calculate(self.total, self.function, self.number)
+        return  "ปัจจุบันคุณมีเงิน " + calculate(self.total, self.function, self.number) + " บาท"
