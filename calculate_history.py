@@ -1,3 +1,3 @@
 def calculate_history(history,action,function,number):
-    history += function + " " + action + " " + number + " บาท" + "\n"
+    history += str(function) + " " + str(action) + " " + str(number) + " บาท" + "\n"
     return history
