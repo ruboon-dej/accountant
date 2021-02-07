@@ -115,7 +115,7 @@ class User:
             else:
                 self.last = "Done"
                 self.action = text
-                self.history = calculate_history()
+                self.history = self.calculate_history()
                 self.reset_every_time()
                 return "เรียบร้อย"
 
@@ -129,10 +129,10 @@ class User:
         if self.first is None:
             if text == "ประวัติ":
                 self.first = "Done"
-                return get_response_2()
+                return self.get_response_2()
             elif text == "รายรับรายจ่าย":
                 self.first = "Done"
-                return get_response_1()
+                return self.get_response_1()
             else:
                 THIRD_PROMPT = TextSendMessage(text=ASK_FOR_FUNCTION,
                     quick_reply=QuickReply(items=[
