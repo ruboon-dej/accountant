@@ -42,7 +42,12 @@ class User:
             else:
                 Response = ""
                 Response += ASK_FOR_RESPONSE + str(self.total) + " บาท"
-                return TextSendMessage(text="YES")
+                FIRST_PROMPT = TextSendMessage(text=Response,
+                    quick_reply=QuickReply(items=[
+                        QuickReplyButton(action=MessageAction(label="ใช่", text="ใช่")),
+                        QuickReplyButton(action=MessageAction(label="ไม่", text="ไม่")),
+                    ]))
+                return TextSendMessage(text=FIRST_PROMPT)
             
         elif self.function is None:
             if text == "รับ":
