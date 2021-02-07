@@ -151,7 +151,7 @@ class User:
                 self.first = "รายรับรายจ่าย"
                 return self.get_response_1(text)
             elif text == "คงเหลือ":
-                yes = "ปัจจุบันคุณมีเงินคงเหลือ " + self.total + " บาท"
+                yes = "ปัจจุบันคุณมีเงินคงเหลือ " + str(self.total) + " บาท"
                 return TextSendMessage(text=yes)
             else:
                 THIRD_PROMPT = TextSendMessage(text=ASK_FOR_FUNCTION,
