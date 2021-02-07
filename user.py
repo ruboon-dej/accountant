@@ -54,15 +54,15 @@ class User:
         if self.ask is None:
             if text == "ใช่":
                 self.reset_by_user()
-                self.ask = "Okay"
-                SECOND_PROMPT = TextSendMessage(text="ปัจจุบันคุณมีเงิน 0 บาท ",
+                self.ask = text
+                SECOND_PROMPT = TextSendMessage(text="ปัจจุบันคุณมีเงิน 0 บาท " + ASK_FOR_FUNCTION,
                     quick_reply=QuickReply(items=[
                         QuickReplyButton(action=MessageAction(label="รับ", text="รับ")),
                         QuickReplyButton(action=MessageAction(label="จ่าย", text="จ่าย"))
                     ]))
                 return SECOND_PROMPT
             elif text == "ไม่":
-                self.ask = "Okay"
+                self.ask = text
                 SECOND_PROMPT = TextSendMessage(text=ASK_FOR_FUNCTION,
                     quick_reply=QuickReply(items=[
                         QuickReplyButton(action=MessageAction(label="รับ", text="รับ")),
