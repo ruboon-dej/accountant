@@ -35,10 +35,20 @@ class User:
             if text == "ใช่":
                 self.reset_by_user()
                 self.ask = "Okay"
-                return TextSendMessage(text="เรียบร้อย ปัจจุบันคุณมีเงิน 0 บาท " + ASK_FOR_FUNCTION)
+                SECOND_PROMPT = TextSendMessage(text="ปัจจุบันคุณมีเงิน 0 บาท " + ASK_FOR_FUNCTION,
+                    quick_reply=QuickReply(items=[
+                        QuickReplyButton(action=MessageAction(label="รับ", text="รับ")),
+                        QuickReplyButton(action=MessageAction(label="จ่าย", text="จ่าย")),
+                    ]))
+                return SECOND_PROMPT
             elif text == "ไม่":
                 self.ask = "Okay"
-                return TextSendMessage(text="รับทราบ " + ASK_FOR_FUNCTION)
+                SECOND_PROMPT = TextSendMessage(text=ASK_FOR_FUNCTION,
+                    quick_reply=QuickReply(items=[
+                        QuickReplyButton(action=MessageAction(label="รับ", text="รับ")),
+                        QuickReplyButton(action=MessageAction(label="จ่าย", text="จ่าย")),
+                    ]))
+                return SECOND_PROMPT
             else:
                 Response = ""
                 Response += ASK_FOR_RESPONSE + str(self.total) + " บาท"
