@@ -78,8 +78,7 @@ def handle_message(event):
     cache.set(user_id, user)
 
     line_bot_api.reply_message(
-        event.reply_token,
-        TextSendMessage(text=text))
+        event.reply_token, text)
 
 
 if __name__ == "__main__":
