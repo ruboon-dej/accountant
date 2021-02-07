@@ -160,7 +160,7 @@ class User:
                 yes = "ปัจจุบันคุณมีเงินคงเหลือ " + str(self.total) + " บาท"
                 return TextSendMessage(text=yes)
             else:
-                THIRD_PROMPT = TextSendMessage(text=ASK_FOR_FUNCTION,
+                THIRD_PROMPT = TextSendMessage(text="คุณต้องการทำรายการอะไร",
                     quick_reply=QuickReply(items=[
                         QuickReplyButton(action=MessageAction(label="ประวัติรายรับรายจ่าย", text="ประวัติ")),
                         QuickReplyButton(action=MessageAction(label="รายรับรายจ่าย", text="รายรับรายจ่าย")),
