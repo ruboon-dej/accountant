@@ -43,9 +43,11 @@ class User:
 
     def get_response_2(self, text):
         if self.history is None:
+            self.reset()
             return TextSendMessage(text="ปัจจุบันคุณยังไม่มีประวัติการบันทึกรายรับ รายจ่าย")
         else:
             result_1 = self.history
+            self.reset_every_time()
             return TextSendMessage(text=result_1)
            
     def get_response_1(self, text):
