@@ -97,6 +97,12 @@ class User:
         elif self.number is None:
             if isdigit(text) == True:
                 self.number = float(text)
+                return TextSendMessage(text="กรุณาบอกการกระทำที่เกี่ยวกับรายรับ หรือรายจ่ายนี้")                
+            else:
+                return TextSendMessage(text=ASK_FOR_NUMBER)
+
+        elif self.last is None:
+            if self.action is None:
                 response = ""
                 try:
                     answer = self.calculate_answer()
@@ -104,22 +110,24 @@ class User:
                     response = "ปัจจุบันคุณมีเงิน " + str(answer) + " บาท"
                 except Exception as e:
                     response = e.args[0]
-                return TextSendMessage(text=response)                
-            else:
-                return TextSendMessage(text=ASK_FOR_NUMBER)
-
-        elif self.last is None:
-            if self.action is None:
                 self.last = "Done"
                 self.action = "Non"
+                self.history = self.calculate_history()
                 self.reset_every_time()
-                return TextSendMessage(text="กรุณาบอกการกระทำที่เกี่ยวกับรายรับ หรือรายจ่ายนี้")
+                return TextSendMessage(text=response)
             else:
+                response = ""
+                try:
+                    answer = self.calculate_answer()
+                    self.total = answer
+                    response = "ปัจจุบันคุณมีเงิน " + str(answer) + " บาท"
+                except Exception as e:
+                    response = e.args[0]
                 self.last = "Done"
                 self.action = text
                 self.history = self.calculate_history()
                 self.reset_every_time()
-                return TextSendMessage(text="เรียบร้อย")
+                return TextSendMessage(text=response)
 
     def calculate_answer(self):
         return calculate(self.total, self.function, self.number)
