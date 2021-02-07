@@ -20,20 +20,51 @@ class User:
         self.reset()
     
     def reset(self):
+        self.first
         self.ask = None
         self.function = None
         self.number = None
+        self.history = None
         self.total = 0
+        self.last = None
+        self.action = None
 
     def reset_every_time(self):
+        self.first = None
         self.ask = None
         self.function = None
         self.number = None
+        self.last = None
+        self.action = None
 
     def reset_by_user(self):
         self.total = 0
+        self.history = None
 
-    def get_response(self, text):
+    def get_result(self, text):
+        if self.first is None:
+            if text == "ประวัติ":
+                self.first = "Done"
+                return get_response_2()
+            elif text == "รายรับรายจ่าย":
+                self.first = "Done"
+                return get_response_1()
+            else:
+                THIRD_PROMPT = TextSendMessage(text=ASK_FOR_FUNCTION,
+                    quick_reply=QuickReply(items=[
+                        QuickReplyButton(action=MessageAction(label="ประวัติรายรับรายจ่าย", text="ประวัติ")),
+                        QuickReplyButton(action=MessageAction(label="ทำรายการบัญชีรายรับรายจ่าย", text="รายรับรายจ่าย")),
+                    ]))
+                return THIRD_PROMPT
+
+    def get_response_2(self, text):
+        if self.history is None:
+            return TextSendMessage(text="ปัจจุบันคุณยังไม่มีประวัติการบันทึกรายรับ รายจ่าย")
+        else:
+            result_1 = self.history
+            return TextSendMessage(text=result_1)
+           
+    def get_response_1(self, text):
         if self.ask is None:
             if text == "ใช่":
                 self.reset_by_user()
@@ -87,12 +118,25 @@ class User:
                     response = "ปัจจุบันคุณมีเงิน " + str(answer) + " บาท"
                 except Exception as e:
                     response = e.args[0]
-                self.reset_every_time()
                 return TextSendMessage(text=response)                
             else:
                 return TextSendMessage(text=ASK_FOR_NUMBER)
 
-
+        elif self.last is None:
+            if self.action is None:
+                self.last = "Done"
+                self.action = "Non"
+                self.reset_every_time()
+                return TextSendMessage(text="กรุณาบอกการกระทำที่เกี่ยวกับรายรับ หรือรายจ่ายนี้")
+            else:
+                self.last = "Done"
+                self.action = text
+                self.history = calculate_history()
+                self.reset_every_time()
+                return "เรียบร้อย"
 
     def calculate_answer(self):
         return calculate(self.total, self.function, self.number)
+
+    def calculate_history(self):
+        return calculate_history(self.history, self.action, self.function, self.number)
