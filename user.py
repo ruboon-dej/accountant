@@ -77,9 +77,13 @@ class User:
         elif self.number is None:
             if text.isdigit() == True:
                 self.number = float(text)
-                answer = self.calculate_answer()
-                self.total = answer
-                response = "ปัจจุบันคุณมีเงิน " + str(answer) + " บาท"
+                response = ""
+                try:
+                    answer = self.calculate_answer()
+                    self.total = answer
+                    response = "ปัจจุบันคุณมีเงิน " + str(answer) + " บาท"
+                except Exception as e:
+                    response = e.args[0]
                 self.reset_every_time()
                 return TextSendMessage(text=response)                
             else:
