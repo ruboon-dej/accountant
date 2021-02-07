@@ -20,6 +20,7 @@ class User:
         self.reset()
     
     def reset(self):
+        self.first = None
         self.ask = None
         self.function = None
         self.number = None
@@ -29,6 +30,7 @@ class User:
         self.action = None
 
     def reset_every_time(self):
+        self.first = None
         self.ask = None
         self.function = None
         self.number = None
@@ -126,14 +128,22 @@ class User:
         return calculate_history(self.history, self.action, self.function, self.number)
 
     def get_result(self, text):
-        if text == "ประวัติ":
-            return self.get_response_2(text)
-        elif text == "รายรับรายจ่าย":
-            return self.get_response_1(text)
+        if self.first is None:
+            if text == "ประวัติ":
+                self.first = "ประวัติ"
+                return self.get_response_2(text)
+            elif text == "รายรับรายจ่าย":
+                self.first = "รายรับรายจ่าย"
+                return self.get_response_1(text)
+            else:
+                THIRD_PROMPT = TextSendMessage(text=ASK_FOR_FUNCTION,
+                    quick_reply=QuickReply(items=[
+                        QuickReplyButton(action=MessageAction(label="ประวัติรายรับรายจ่าย", text="ประวัติ")),
+                        QuickReplyButton(action=MessageAction(label="รายรับรายจ่าย", text="รายรับรายจ่าย")),
+                    ]))
+                return THIRD_PROMPT
         else:
-            THIRD_PROMPT = TextSendMessage(text=ASK_FOR_FUNCTION,
-                quick_reply=QuickReply(items=[
-                    QuickReplyButton(action=MessageAction(label="ประวัติรายรับรายจ่าย", text="ประวัติ")),
-                    QuickReplyButton(action=MessageAction(label="รายรับรายจ่าย", text="รายรับรายจ่าย")),
-                ]))
-            return THIRD_PROMPT
+            if self.first == "ประวัติ":
+                return self.get_response_2(text)
+            elif self.first == "รายรับรายจ่าย":
+                return self.get_response_1(text)
