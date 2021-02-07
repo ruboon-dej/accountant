@@ -25,7 +25,7 @@ class User:
         self.ask = None
         self.function = None
         self.number = None
-        self.history = ""
+        self.history = "ปัจจุบันคุณยังไม่มีประวัติการบันทึกรายรับ รายจ่าย"
         self.total = 0
         self.last = None
         self.action = None
@@ -40,7 +40,7 @@ class User:
 
     def reset_by_user(self):
         self.total = 0
-        self.history = ""
+        self.history = "ปัจจุบันคุณยังไม่มีประวัติการบันทึกรายรับ รายจ่าย"
 
     def get_response_2(self, text):
         if self.history is None:
@@ -87,11 +87,17 @@ class User:
             elif text == "จ่าย":
                 self.function = text
                 return TextSendMessage(text=ASK_FOR_NUMBER)
+            elif text == "ยกเลิก":
+                self.function = text
+                self.number = text
+                self.last = text
+                self.action = text                
             else:
                 SECOND_PROMPT = TextSendMessage(text=ASK_FOR_FUNCTION,
                     quick_reply=QuickReply(items=[
                         QuickReplyButton(action=MessageAction(label="รับ", text="รับ")),
                         QuickReplyButton(action=MessageAction(label="จ่าย", text="จ่าย")),
+                        QuickReplyButton(action=MessageAction(label="ยกเลิก", text="ยกเลิก"))
                     ]))
                 return SECOND_PROMPT
 
@@ -144,11 +150,15 @@ class User:
             elif text == "รายรับรายจ่าย":
                 self.first = "รายรับรายจ่าย"
                 return self.get_response_1(text)
+            elif text == "คงเหลือ":
+                yes = "ปัจจุบันคุณมีเงินคงเหลือ " + self.total + " บาท"
+                return TextSendMessage(text=yes)
             else:
                 THIRD_PROMPT = TextSendMessage(text=ASK_FOR_FUNCTION,
                     quick_reply=QuickReply(items=[
                         QuickReplyButton(action=MessageAction(label="ประวัติรายรับรายจ่าย", text="ประวัติ")),
                         QuickReplyButton(action=MessageAction(label="รายรับรายจ่าย", text="รายรับรายจ่าย")),
+                        QuickReplyButton(action=MessageAction(label="เงินคงเหลือ", text="เงินคงเหลือ"))
                     ]))
                 return THIRD_PROMPT
         else:
@@ -156,3 +166,6 @@ class User:
                 return self.get_response_2(text)
             elif self.first == "รายรับรายจ่าย":
                 return self.get_response_1(text)
+            elif text == "คงเหลือ":
+                yes = "ปัจจุบันคุณมีเงินคงเหลือ " + self.total + " บาท"
+                return TextSendMessage(text=yes)
