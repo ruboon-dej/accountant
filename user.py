@@ -25,7 +25,7 @@ class User:
         self.ask = None
         self.function = None
         self.number = None
-        self.history = None
+        self.history = "ปัจจุบันคุณยังไม่มีประวัติการบันทึกรายรับ รายจ่าย"
         self.total = 0
         self.last = None
         self.action = None
@@ -40,16 +40,16 @@ class User:
 
     def reset_by_user(self):
         self.total = 0
-        self.history = None
+        self.history = "ปัจจุบันคุณยังไม่มีประวัติการบันทึกรายรับ รายจ่าย"
 
     def get_response_2(self, text):
-        if self.history is None:
+        if self.history == "ปัจจุบันคุณยังไม่มีประวัติการบันทึกรายรับ รายจ่าย":
             self.reset()
             return TextSendMessage(text="ปัจจุบันคุณยังไม่มีประวัติการบันทึกรายรับ รายจ่าย")
         else:
             result_1 = self.history
             self.reset_every_time()
-            return TextSendMessage(text=result_1[:-1])
+            return TextSendMessage(text=result_1[1:-1])
            
     def get_response_1(self, text):
         if self.ask is None:
