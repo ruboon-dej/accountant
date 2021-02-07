@@ -129,10 +129,10 @@ class User:
         if self.first is None:
             if text == "ประวัติ":
                 self.first = "Done"
-                return self.get_response_2()
+                return self.get_response_2(text)
             elif text == "รายรับรายจ่าย":
                 self.first = "Done"
-                return self.get_response_1()
+                return self.get_response_1(text)
             else:
                 THIRD_PROMPT = TextSendMessage(text=ASK_FOR_FUNCTION,
                     quick_reply=QuickReply(items=[
