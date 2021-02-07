@@ -53,7 +53,7 @@ class User:
                 THIRD_PROMPT = TextSendMessage(text=ASK_FOR_FUNCTION,
                     quick_reply=QuickReply(items=[
                         QuickReplyButton(action=MessageAction(label="ประวัติรายรับรายจ่าย", text="ประวัติ")),
-                        QuickReplyButton(action=MessageAction(label="ทำรายการบัญชีรายรับรายจ่าย", text="รายรับรายจ่าย")),
+                        QuickReplyButton(action=MessageAction(label="รายรับรายจ่าย", text="รายรับรายจ่าย")),
                     ]))
                 return THIRD_PROMPT
 
