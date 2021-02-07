@@ -29,7 +29,6 @@ class User:
         self.total = 0
         self.last = None
         self.action = None
-        self.cancel = None
 
     def reset_every_time(self):
         self.first = None
@@ -38,7 +37,6 @@ class User:
         self.number = None
         self.last = None
         self.action = None
-        self.cancel = None
 
     def reset_by_user(self):
         self.total = 0
@@ -92,10 +90,7 @@ class User:
                 self.function = text
                 return TextSendMessage(text=ASK_FOR_NUMBER)
             elif text == "ยกเลิก":
-                self.function = text
-                self.number = text
-                self.last = text
-                self.action = text
+                self.reset_every_time()
                 return TextSendMessage(text="okay")                
             else:
                 SECOND_PROMPT = TextSendMessage(text=ASK_FOR_FUNCTION,
@@ -122,14 +117,12 @@ class User:
                     response = "ปัจจุบันคุณมีเงิน " + str(answer) + " บาท"
                     self.last = "Done"
                     self.action = text
-                    self.cancel = "cancel"
                     self.history = self.calculate_history()
                     self.reset_every_time()
                 except Exception as e:
                     response = e.args[0]
                     self.last = "Done"
                     self.action = text
-                    self.cancel = "cancel"
                     self.reset_every_time()
                 return TextSendMessage(text=response)
             else:
@@ -140,21 +133,15 @@ class User:
                     response = "ปัจจุบันคุณมีเงิน " + str(answer) + " บาท"
                     self.last = "Done"
                     self.action = text
-                    self.cancel = "cancel"
                     self.history = self.calculate_history()
                     self.reset_every_time()                    
                 except Exception as e:
                     response = e.args[0]
                     self.last = "Done"
                     self.action = text
-                    self.cancel = "cancel"
                     self.reset_every_time()
                 return TextSendMessage(text=response)
 
-        elif self.cancel is None:
-            self.reset_every_time()
-            return TextSendMessage(text="")
-            
     def calculate_answer(self):
         return calculate(self.total, self.function, self.number)
 
