@@ -58,7 +58,7 @@ class User:
                 SECOND_PROMPT = TextSendMessage(text="ปัจจุบันคุณมีเงิน 0 บาท " + ASK_FOR_FUNCTION,
                     quick_reply=QuickReply(items=[
                         QuickReplyButton(action=MessageAction(label="รับ", text="รับ")),
-                        QuickReplyButton(action=MessageAction(label="จ่าย", text="จ่าย")),
+                        QuickReplyButton(action=MessageAction(label="จ่าย", text="จ่าย"))
                     ]))
                 return SECOND_PROMPT
             elif text == "ไม่":
@@ -66,7 +66,7 @@ class User:
                 SECOND_PROMPT = TextSendMessage(text=ASK_FOR_FUNCTION,
                     quick_reply=QuickReply(items=[
                         QuickReplyButton(action=MessageAction(label="รับ", text="รับ")),
-                        QuickReplyButton(action=MessageAction(label="จ่าย", text="จ่าย")),
+                        QuickReplyButton(action=MessageAction(label="จ่าย", text="จ่าย"))
                     ]))
                 return SECOND_PROMPT
             else:
