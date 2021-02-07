@@ -121,6 +121,9 @@ class User:
                     self.reset_every_time()
                 except Exception as e:
                     response = e.args[0]
+                    self.last = "Done"
+                    self.action = text
+                    self.reset_every_time()
                 return TextSendMessage(text=response)
             else:
                 response = ""
