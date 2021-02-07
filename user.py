@@ -119,7 +119,7 @@ class User:
                 self.action = text
                 self.history = self.calculate_history()
                 self.reset_every_time()
-                return "เรียบร้อย"
+                return TextSendMessage(text="เรียบร้อย")
 
     def calculate_answer(self):
         return calculate(self.total, self.function, self.number)
