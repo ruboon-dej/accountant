@@ -24,7 +24,7 @@ class User:
         self.ask = None
         self.function = None
         self.number = None
-        self.history = None
+        self.history = ""
         self.total = 0
         self.last = None
         self.action = None
@@ -39,7 +39,7 @@ class User:
 
     def reset_by_user(self):
         self.total = 0
-        self.history = None
+        self.history = ""
 
     def get_response_2(self, text):
         if self.history is None:
