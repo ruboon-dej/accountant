@@ -57,7 +57,12 @@ class User:
                 self.function = text
                 return TextSendMessage(text=ASK_FOR_NUMBER)
             else:
-                return TextSendMessage(text=ASK_FOR_FUNCTION)
+                SECOND_PROMPT = TextSendMessage(text=ASK_FOR_FUNCTION,
+                    quick_reply=QuickReply(items=[
+                        QuickReplyButton(action=MessageAction(label="รับ", text="รับ")),
+                        QuickReplyButton(action=MessageAction(label="จ่าย", text="จ่าย")),
+                    ]))
+                return SECOND_PROMPT
 
         elif self.number is None:
             if text.isdigit() == True:
@@ -73,4 +78,4 @@ class User:
 
 
     def calculate_answer(self):
-        return TextSendMessage(text=calculate(self.total, self.function, self.number))
+        return calculate(self.total, self.function, self.number)
