@@ -25,7 +25,7 @@ class User:
         self.ask = None
         self.function = None
         self.number = None
-        self.history = "ปัจจุบันคุณยังไม่มีประวัติการบันทึกรายรับ รายจ่าย"
+        self.history = None
         self.total = 0
         self.last = None
         self.action = None
@@ -40,7 +40,7 @@ class User:
 
     def reset_by_user(self):
         self.total = 0
-        self.history = "ปัจจุบันคุณยังไม่มีประวัติการบันทึกรายรับ รายจ่าย"
+        self.history = None
 
     def get_response_2(self, text):
         if self.history is None:
@@ -115,12 +115,12 @@ class User:
                     answer = self.calculate_answer()
                     self.total = answer
                     response = "ปัจจุบันคุณมีเงิน " + str(answer) + " บาท"
+                    self.last = "Done"
+                    self.action = text
+                    self.history = self.calculate_history()
+                    self.reset_every_time()
                 except Exception as e:
                     response = e.args[0]
-                self.last = "Done"
-                self.action = text
-                self.history = self.calculate_history()
-                self.reset_every_time()
                 return TextSendMessage(text=response)
             else:
                 response = ""
@@ -128,12 +128,12 @@ class User:
                     answer = self.calculate_answer()
                     self.total = answer
                     response = "ปัจจุบันคุณมีเงิน " + str(answer) + " บาท"
+                    self.last = "Done"
+                    self.action = text
+                    self.history = self.calculate_history()
+                    self.reset_every_time()                    
                 except Exception as e:
                     response = e.args[0]
-                self.last = "Done"
-                self.action = text
-                self.history = self.calculate_history()
-                self.reset_every_time()
                 return TextSendMessage(text=response)
 
     def calculate_answer(self):
