@@ -20,7 +20,7 @@ class User:
         self.reset()
     
     def reset(self):
-        self.first
+        self.first = None
         self.ask = None
         self.function = None
         self.number = None
