@@ -49,7 +49,7 @@ class User:
         else:
             result_1 = self.history
             self.reset_every_time()
-            return TextSendMessage(text=result_1)
+            return TextSendMessage(text=result_1[:-1])
            
     def get_response_1(self, text):
         if self.ask is None:
@@ -112,7 +112,7 @@ class User:
                 except Exception as e:
                     response = e.args[0]
                 self.last = "Done"
-                self.action = "Non"
+                self.action = text
                 self.history = self.calculate_history()
                 self.reset_every_time()
                 return TextSendMessage(text=response)
