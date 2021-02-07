@@ -41,22 +41,6 @@ class User:
         self.total = 0
         self.history = None
 
-    def get_result(self, text):
-        if self.first is None:
-            if text == "ประวัติ":
-                self.first = "Done"
-                return get_response_2()
-            elif text == "รายรับรายจ่าย":
-                self.first = "Done"
-                return get_response_1()
-            else:
-                THIRD_PROMPT = TextSendMessage(text=ASK_FOR_FUNCTION,
-                    quick_reply=QuickReply(items=[
-                        QuickReplyButton(action=MessageAction(label="ประวัติรายรับรายจ่าย", text="ประวัติ")),
-                        QuickReplyButton(action=MessageAction(label="รายรับรายจ่าย", text="รายรับรายจ่าย")),
-                    ]))
-                return THIRD_PROMPT
-
     def get_response_2(self, text):
         if self.history is None:
             return TextSendMessage(text="ปัจจุบันคุณยังไม่มีประวัติการบันทึกรายรับ รายจ่าย")
@@ -140,3 +124,19 @@ class User:
 
     def calculate_history(self):
         return calculate_history(self.history, self.action, self.function, self.number)
+
+    def get_result(self, text):
+        if self.first is None:
+            if text == "ประวัติ":
+                self.first = "Done"
+                return get_response_2()
+            elif text == "รายรับรายจ่าย":
+                self.first = "Done"
+                return get_response_1()
+            else:
+                THIRD_PROMPT = TextSendMessage(text=ASK_FOR_FUNCTION,
+                    quick_reply=QuickReply(items=[
+                        QuickReplyButton(action=MessageAction(label="ประวัติรายรับรายจ่าย", text="ประวัติ")),
+                        QuickReplyButton(action=MessageAction(label="รายรับรายจ่าย", text="รายรับรายจ่าย")),
+                    ]))
+                return THIRD_PROMPT
