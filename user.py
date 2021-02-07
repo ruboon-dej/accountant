@@ -45,9 +45,9 @@ class User:
                 FIRST_PROMPT = TextSendMessage(text=Response,
                     quick_reply=QuickReply(items=[
                         QuickReplyButton(action=MessageAction(label="ใช่", text="ใช่")),
-                        QuickReplyButton(action=MessageAction(label="ไม่", text="ไม่")),
+                        QuickReplyButton(action=MessageAction(label="ไม่", text="ไม่"))
                     ]))
-                return TextSendMessage(text=FIRST_PROMPT)
+                return FIRST_PROMPT
             
         elif self.function is None:
             if text == "รับ":
