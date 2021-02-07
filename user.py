@@ -12,6 +12,9 @@ FIRST_PROMPT = TextSendMessage(text="ok",
         QuickReplyButton(action=MessageAction(label="ไม่", text="ไม่")),
     ]))
 
+def isdigit(text):
+    return re.match("^\d+(\.\d+)?$", text) is not None
+
 class User:
     def __init__(self):
         self.reset()
@@ -75,7 +78,7 @@ class User:
                 return SECOND_PROMPT
 
         elif self.number is None:
-            if text.isdigit() == True:
+            if isdigit(text) == True:
                 self.number = float(text)
                 response = ""
                 try:
