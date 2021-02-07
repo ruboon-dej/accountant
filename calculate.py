@@ -3,7 +3,7 @@ def calculate(total,function,number):
         total += number
     elif function == "จ่าย":
         total -= number
-        if number <= 0:
+        if total <= 0:
             raise Exception("Number cannot be lower than 0")
     else:
         raise Exception("Invalid Input")
