@@ -158,7 +158,7 @@ class User:
                     quick_reply=QuickReply(items=[
                         QuickReplyButton(action=MessageAction(label="ประวัติรายรับรายจ่าย", text="ประวัติ")),
                         QuickReplyButton(action=MessageAction(label="รายรับรายจ่าย", text="รายรับรายจ่าย")),
-                        QuickReplyButton(action=MessageAction(label="เงินคงเหลือ", text="เงินคงเหลือ"))
+                        QuickReplyButton(action=MessageAction(label="เงินคงเหลือ", text="คงเหลือ"))
                     ]))
                 return THIRD_PROMPT
         else:
