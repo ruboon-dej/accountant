@@ -51,38 +51,8 @@ class User:
             self.reset_every_time()
             return TextSendMessage(text=result_1[1:-1])
            
-    def get_response_1(self, text):
-        if self.ask is None:
-            if text == "ใช่":
-                self.reset_by_user()
-                self.ask = text
-                SECOND_PROMPT = TextSendMessage(text="ปัจจุบันคุณมีเงิน 0 บาท " + ASK_FOR_FUNCTION,
-                    quick_reply=QuickReply(items=[
-                        QuickReplyButton(action=MessageAction(label="รับ", text="รับ")),
-                        QuickReplyButton(action=MessageAction(label="จ่าย", text="จ่าย")),
-                        QuickReplyButton(action=MessageAction(label="ยกเลิก", text="ยกเลิก"))
-                    ]))
-                return SECOND_PROMPT
-            elif text == "ไม่":
-                self.ask = text
-                SECOND_PROMPT = TextSendMessage(text=ASK_FOR_FUNCTION,
-                    quick_reply=QuickReply(items=[
-                        QuickReplyButton(action=MessageAction(label="รับ", text="รับ")),
-                        QuickReplyButton(action=MessageAction(label="จ่าย", text="จ่าย")),
-                        QuickReplyButton(action=MessageAction(label="ยกเลิก", text="ยกเลิก"))
-                    ]))
-                return SECOND_PROMPT
-            else:
-                Response = ""
-                Response += ASK_FOR_RESPONSE + str(self.total) + " บาท"
-                FIRST_PROMPT = TextSendMessage(text=Response,
-                    quick_reply=QuickReply(items=[
-                        QuickReplyButton(action=MessageAction(label="ใช่", text="ใช่")),
-                        QuickReplyButton(action=MessageAction(label="ไม่", text="ไม่"))
-                    ]))
-                return FIRST_PROMPT
-            
-        elif self.function is None:
+    def get_response_1(self, text):            
+        if self.function is None:
             if text == "รับ":
                 self.function = text
                 return TextSendMessage(text=ASK_FOR_NUMBER)
@@ -159,12 +129,17 @@ class User:
             elif text == "คงเหลือ":
                 yes = "ปัจจุบันคุณมีเงินคงเหลือ " + str(self.total) + " บาท"
                 return TextSendMessage(text=yes)
+            elif text == "ลบ":
+                self.reset_by_user()
+                eyes = "ปัจจุบันคุณมีเงินคงเหลือ " + str(self.total) + " บาท"
+                return TextSendMessage(text=eyes)
             else:
                 THIRD_PROMPT = TextSendMessage(text="คุณต้องการทำรายการอะไร",
                     quick_reply=QuickReply(items=[
                         QuickReplyButton(action=MessageAction(label="ประวัติรายรับรายจ่าย", text="ประวัติ")),
                         QuickReplyButton(action=MessageAction(label="รายรับรายจ่าย", text="รายรับรายจ่าย")),
-                        QuickReplyButton(action=MessageAction(label="เงินคงเหลือ", text="คงเหลือ"))
+                        QuickReplyButton(action=MessageAction(label="เงินคงเหลือ", text="คงเหลือ")),
+                        QuickReplyButton(action=MessageAction(label="ลบข้อมูลรายรับรายจ่าย", text="ลบ"))
                     ]))
                 return THIRD_PROMPT
         else:
