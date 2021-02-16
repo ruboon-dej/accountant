@@ -55,7 +55,7 @@ class User:
             return TextSendMessage(text=result_1[1:-1])
     
     def get_remaining(self):
-        accounts = AccountMovement.query.all()
+        accounts = AccountMovement.query.filter_by(user_id=self.user_id)
         total = 0
 
         for account in accounts:
@@ -64,7 +64,7 @@ class User:
         return TextSendMessage(text=yes)
 
     def history_test(self,text):
-        accounts = AccountMovement.query.all()
+        accounts = AccountMovement.query.filter_by(user_id=self.user_id)
         b = ""
         total = 0
 

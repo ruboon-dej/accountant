@@ -11,7 +11,7 @@ class AccountMovement(db.Model):
     action = db.Column(db.Text)
     amount = db.Column(db.Float)
 
-accounts = AccountMovement.query.all()
+accounts = AccountMovement.query.filter_by(user_id="U16a9c0fcb3790ce5c91d368b4dbd7f63")
 for account in accounts:
     action = account.action
     print (action)
