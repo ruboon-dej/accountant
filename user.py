@@ -66,6 +66,7 @@ class User:
                 quick_reply=QuickReply(items=items))
         else:
             account = AccountMovement.query.filter_by(id=text, user_id=self.user_id).first()
+            print('account to delete: ', account)
             db.session.delete(account)
             db.session.commit()
             self.reset_every_time()
