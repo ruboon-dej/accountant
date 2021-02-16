@@ -188,7 +188,8 @@ class User:
             elif text == "ลบ":
                 self.delete_all()
                 return TextSendMessage(text="Deleted")
-            elif self.first == "Test":
+            elif text == "Test":
+                self.first = "Test"
                 return self.delete_movement(text)
 
             else:
