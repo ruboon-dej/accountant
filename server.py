@@ -18,7 +18,6 @@ cache = Cache()
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
 db = SQLAlchemy(app)
-db.create_all()
 
 from user import User
 
