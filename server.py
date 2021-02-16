@@ -14,6 +14,8 @@ from linebot.models import (
     MessageEvent, TextMessage, TextSendMessage,
 )
 
+user_id = "U16a9c0fcb3790ce5c91d368b4dbd7f63"
+
 cache = Cache()
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')

@@ -55,7 +55,7 @@ class User:
             return TextSendMessage(text=result_1[1:-1])
            
     def history_test(self,text):
-        accounts = AccountMovement.query.all
+        accounts = AccountMovement.query.all()
         for account in accounts:
             action = account.action
             action += action
@@ -148,7 +148,7 @@ class User:
                 return TextSendMessage(text=eyes)
             elif text == "Test":
                 return self.history_test(text)
-                
+
             else:
                 THIRD_PROMPT = TextSendMessage(text="คุณต้องการทำรายการอะไร",
                     quick_reply=QuickReply(items=[
