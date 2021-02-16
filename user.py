@@ -59,7 +59,7 @@ class User:
                 i += 1
                 label = "{}. {}".format(i, account.action)
                 b += "{} {} บาท\n".format(label, account.amount)
-                items.append(QuickReplyButton(action=MessageAction(label=label[:10], text=account.id)))
+                items.append(QuickReplyButton(action=MessageAction(label=label, text=account.id)))
             self.delete = "Done"
 
             return TextSendMessage(text=b,
