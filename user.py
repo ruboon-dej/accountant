@@ -188,7 +188,7 @@ class User:
             elif text == "ลบ":
                 self.delete_all()
                 return TextSendMessage(text="Deleted")
-            elif text == "Test":
+            elif self.first == "Test":
                 return self.delete_movement(text)
 
             else:
@@ -208,5 +208,5 @@ class User:
                 return self.get_response_1(text)
             elif text == "คงเหลือ":
                 return self.get_remaining()
-            elif text == "Test":
+            elif self.first == "Test":
                 return self.delete_movement(text)
