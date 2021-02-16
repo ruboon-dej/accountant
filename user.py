@@ -65,12 +65,15 @@ class User:
             return TextSendMessage(text=b,
                 quick_reply=QuickReply(items=items))
         else:
-            account = AccountMovement.query.filter_by(id=text, user_id=self.user_id).first()
-            print('account to delete: ', account)
-            db.session.delete(account)
-            db.session.commit()
-            self.reset_every_time()
-        return TextSendMessage(text="Deleted")
+            try:
+                account = AccountMovement.query.filter_by(id=text, user_id=self.user_id).first()
+                db.session.delete(account)
+                db.session.commit()
+                self.reset_every_time()
+                return TextSendMessage(text="Deleted")
+            except:
+                self.reset_every_time()
+                return TextSendMessage(text="Invalid Input")
     
     def get_remaining(self):
         accounts = AccountMovement.query.filter_by(user_id=self.user_id)
