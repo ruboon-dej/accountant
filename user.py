@@ -54,6 +54,13 @@ class User:
             self.reset_every_time()
             return TextSendMessage(text=result_1[1:-1])
            
+    def history_test(self,text):
+        accounts = AccountMovement.query.all
+        for account in accounts:
+            action = account.action
+            action += action
+        return TextSendMessage(text=action)
+
     def get_response_1(self, text):            
         if self.function is None:
             if text == "รับ":
@@ -145,7 +152,8 @@ class User:
                         QuickReplyButton(action=MessageAction(label="ประวัติรายรับรายจ่าย", text="ประวัติ")),
                         QuickReplyButton(action=MessageAction(label="รายรับรายจ่าย", text="รายรับรายจ่าย")),
                         QuickReplyButton(action=MessageAction(label="เงินคงเหลือ", text="คงเหลือ")),
-                        QuickReplyButton(action=MessageAction(label="ลบข้อมูลรายรับรายจ่าย", text="ลบ"))
+                        QuickReplyButton(action=MessageAction(label="ลบข้อมูลรายรับรายจ่าย", text="ลบ")),
+                        QuickReplyButton(action=MessageAction(label="Test", text="Test"))
                     ]))
                 return THIRD_PROMPT
         else:
@@ -156,3 +164,5 @@ class User:
             elif text == "คงเหลือ":
                 yes = "ปัจจุบันคุณมีเงินคงเหลือ " + str(self.total) + " บาท"
                 return TextSendMessage(text=yes)
+            elif text == "Test":
+                return self.history_test(text)
