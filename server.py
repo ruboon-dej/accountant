@@ -14,13 +14,13 @@ from linebot.models import (
     MessageEvent, TextMessage, TextSendMessage,
 )
 
-from user import User
-
 cache = Cache()
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
 db = SQLAlchemy(app)
 db.create_all()
+
+from user import User
 
 cache_servers = os.environ.get('MEMCACHIER_SERVERS')
 cache_user = os.environ.get('MEMCACHIER_USERNAME') or ''
