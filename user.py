@@ -32,6 +32,7 @@ class User:
         self.total = 0
         self.last = None
         self.action = None
+        self.delete = None
 
     def reset_every_time(self):
         self.first = None
@@ -40,19 +41,35 @@ class User:
         self.number = None
         self.last = None
         self.action = None
+        self.delete = None
 
     def reset_by_user(self):
         self.total = 0
         self.history = "B"
 
-    def get_response_2(self, text):
-        if self.history == "B":
-            self.reset()
-            return TextSendMessage(text="ปัจจุบันคุณยังไม่มีประวัติการบันทึกรายรับ รายจ่าย")
+    def delete_movement(self,text):
+        if self.delete is None:
+            accounts = AccountMovement.query.filter_by(user_id=self.user_id)
+            b = ""
+            i = 0
+            
+            items = []
+
+            for account in accounts:
+                i += 1
+                label = "{}. {}".format(i, account.action)
+                b += "{} {} บาท\n".format(label, account.amount)
+                items.append(QuickReplyButton(action=MessageAction(label=label[:10], text=account.id)))
+            self.delete = "Done"
+
+            return TextSendMessage(text=b,
+                quick_reply=QuickReply(items=items))
         else:
-            result_1 = self.history
+            account = AccountMovement.query.filter_by(id=text, user_id=self.user_id).first()
+            db.session.delete(account)
+            db.session.commit()
             self.reset_every_time()
-            return TextSendMessage(text=result_1[1:-1])
+        return TextSendMessage(text="Deleted")
     
     def get_remaining(self):
         accounts = AccountMovement.query.filter_by(user_id=self.user_id)
@@ -153,7 +170,7 @@ class User:
         if self.first is None:
             if text == "ประวัติ":
                 self.first = "ประวัติ"
-                return self.get_response_2(text)
+                return self.history_test(text)
             elif text == "รายรับรายจ่าย":
                 self.first = "รายรับรายจ่าย"
                 return self.get_response_1(text)
@@ -164,7 +181,7 @@ class User:
                 eyes = "ปัจจุบันคุณมีเงินคงเหลือ " + str(self.total) + " บาท"
                 return TextSendMessage(text=eyes)
             elif text == "Test":
-                return self.history_test(text)
+                return self.delete_movement(text)
 
             else:
                 THIRD_PROMPT = TextSendMessage(text="คุณต้องการทำรายการอะไร",
@@ -178,10 +195,10 @@ class User:
                 return THIRD_PROMPT
         else:
             if self.first == "ประวัติ":
-                return self.get_response_2(text)
+                return self.history_test(text)
             elif self.first == "รายรับรายจ่าย":
                 return self.get_response_1(text)
             elif text == "คงเหลือ":
                 return self.get_remaining()
             elif text == "Test":
-                return self.history_test(text)
+                return self.delete_movement(text)
