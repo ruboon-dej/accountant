@@ -2,6 +2,8 @@ from linebot.models import (MessageEvent, TextMessage, TextSendMessage, QuickRep
 from calculate import calculate
 from calculate_history import calculate_history
 import re
+from models import AccountMovement
+from server import db
 
 ASK_FOR_FUNCTION = "รับ หรือ จ่าย"
 ASK_FOR_NUMBER = "จำนวนเงิน"
@@ -17,7 +19,8 @@ def isdigit(text):
     return re.match("^\d+(\.\d+)?$", text) is not None
 
 class User:
-    def __init__(self):
+    def __init__(self, user_id):
+        self.user_id = user_id
         self.reset()
     
     def reset(self):
@@ -111,11 +114,14 @@ class User:
                     self.action = text
                     self.reset_every_time()
                 return TextSendMessage(text=response)
-
+    
     def calculate_answer(self):
         return calculate(self.total, self.function, self.number)
 
     def calculate_history(self):
+        amount = -self.number if self.function == "จ่าย" else self.number
+        db.session.add(AccountMovement(user_id=self.user_id, action=self.action, amount=amount))
+        db.session.commit()
         return calculate_history(self.history, self.action, self.function, self.number)
 
     def get_result(self, text):

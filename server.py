@@ -1,5 +1,6 @@
 from flask import Flask, request, abort
 from flask_caching import Cache
+from flask_sqlalchemy import SQLAlchemy
 
 import os
 
@@ -17,6 +18,9 @@ from user import User
 
 cache = Cache()
 app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
+db = SQLAlchemy(app)
+db.create_all()
 
 cache_servers = os.environ.get('MEMCACHIER_SERVERS')
 cache_user = os.environ.get('MEMCACHIER_USERNAME') or ''
@@ -71,7 +75,7 @@ def handle_message(event):
 
     user = cache.get(user_id)
     if user is None:
-        user = User()
+        user = User(user_id)
         cache.set(user_id, user)
 
     text = user.get_result(event.message.text)
