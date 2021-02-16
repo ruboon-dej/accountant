@@ -146,6 +146,9 @@ class User:
                 self.reset_by_user()
                 eyes = "ปัจจุบันคุณมีเงินคงเหลือ " + str(self.total) + " บาท"
                 return TextSendMessage(text=eyes)
+            elif text == "Test":
+                return self.history_test(text)
+                
             else:
                 THIRD_PROMPT = TextSendMessage(text="คุณต้องการทำรายการอะไร",
                     quick_reply=QuickReply(items=[
