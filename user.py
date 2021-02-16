@@ -53,13 +53,31 @@ class User:
             result_1 = self.history
             self.reset_every_time()
             return TextSendMessage(text=result_1[1:-1])
-           
+    
+    def get_remaining(self):
+        accounts = AccountMovement.query.all()
+        total = 0
+
+        for account in accounts:
+            total += account.amount
+        yes = "ปัจจุบันคุณมีเงินคงเหลือ " + str(total) + " บาท"
+        return TextSendMessage(text=yes)
+
     def history_test(self,text):
         accounts = AccountMovement.query.all()
+        b = ""
+        total = 0
+
         for account in accounts:
-            action = account.action
-            action += action
-        return TextSendMessage(text=action)
+            total += account.amount
+
+        for account in accounts:
+            a = account.action
+            c = account.amount
+            b += a + ' ' + str(c) + " บาท"+ "\n"
+        
+        d = b + 'รวม ' + str(total)
+        return TextSendMessage(text=d)
 
     def get_response_1(self, text):            
         if self.function is None:
@@ -140,8 +158,7 @@ class User:
                 self.first = "รายรับรายจ่าย"
                 return self.get_response_1(text)
             elif text == "คงเหลือ":
-                yes = "ปัจจุบันคุณมีเงินคงเหลือ " + str(self.total) + " บาท"
-                return TextSendMessage(text=yes)
+                return self.get_remaining()
             elif text == "ลบ":
                 self.reset_by_user()
                 eyes = "ปัจจุบันคุณมีเงินคงเหลือ " + str(self.total) + " บาท"
@@ -165,7 +182,6 @@ class User:
             elif self.first == "รายรับรายจ่าย":
                 return self.get_response_1(text)
             elif text == "คงเหลือ":
-                yes = "ปัจจุบันคุณมีเงินคงเหลือ " + str(self.total) + " บาท"
-                return TextSendMessage(text=yes)
+                return self.get_remaining()
             elif text == "Test":
                 return self.history_test(text)
