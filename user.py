@@ -78,7 +78,14 @@ class User:
         for account in accounts:
             total += account.amount
         yes = "ปัจจุบันคุณมีเงินคงเหลือ " + str(total) + " บาท"
+        self.reset_every_time()
         return TextSendMessage(text=yes)
+
+    def delete_all(self):
+        accounts = AccountMovement.query.filter_by(user_id=self.user_id)
+        for account in accounts:
+            db.session.delete(account)
+        db.session.commit()
 
     def history_test(self,text):
         accounts = AccountMovement.query.filter_by(user_id=self.user_id)
@@ -94,6 +101,7 @@ class User:
             b += a + ' ' + str(c) + " บาท"+ "\n"
         
         d = b + 'รวม ' + str(total)
+        self.reset_every_time()
         return TextSendMessage(text=d)
 
     def get_response_1(self, text):            
@@ -177,9 +185,8 @@ class User:
             elif text == "คงเหลือ":
                 return self.get_remaining()
             elif text == "ลบ":
-                self.reset_by_user()
-                eyes = "ปัจจุบันคุณมีเงินคงเหลือ " + str(self.total) + " บาท"
-                return TextSendMessage(text=eyes)
+                self.delete_all()
+                return TextSendMessage(text="Deleted")
             elif text == "Test":
                 return self.delete_movement(text)
 
