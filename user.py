@@ -202,7 +202,7 @@ class User:
                         QuickReplyButton(action=MessageAction(label="รายรับรายจ่าย", text="รายรับรายจ่าย")),
                         QuickReplyButton(action=MessageAction(label="เงินคงเหลือ", text="คงเหลือ")),
                         QuickReplyButton(action=MessageAction(label="ลบข้อมูลรายรับรายจ่าย", text="ลบ")),
-                        QuickReplyButton(action=MessageAction(label="Test", text="Test"))
+                        QuickReplyButton(action=MessageAction(label="เลือกลบรายรับรายจ่าย", text="Test"))
                     ]))
                 return THIRD_PROMPT
         else:
